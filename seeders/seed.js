@@ -1,9 +1,18 @@
 let mongoose = require("mongoose");
 let db = require("../models");
 
+
 mongoose.connect("mongodb://localhost/workout", {
   useNewUrlParser: true,
-  useFindAndModify: false
+  useFindAndModify: false,
+  useUnifiedTopology: true
+});
+
+// check to see if connected to test db
+const conn = mongoose.connection;;
+conn.on('error', console.error.bind(console, 'connection error:'));
+conn.once('open', function() {
+  console.log('connected to db');
 });
 
 let workoutSeed = [
