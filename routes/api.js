@@ -4,9 +4,11 @@ const { Workout } = require("../models");
 
 // get last workout
 router.get("/workouts", async (req, res) => {
-  await Workout.find({})
+ // await Workout.find({})
+ //await Workout.aggregate([{ $addFields: { totalDuration: { $sum: "$exercises.duration" } } }])
+ await Workout.totalDuration()
     .then(results => {
-      console.log(`all workouts ${results}`);
+      //console.log(`all workouts ${results}`);
       res.send(results);
     })
     .catch(error => {
@@ -42,7 +44,8 @@ router.put("/workouts/:id", async ({ body, params }, res) => {
 // get workouts in range - lookup aggregate query function to use here
 router.get("/workouts/range", async (req, res) => {
 // $addFields outputs documents that contain all existing fields from the input documents and newly added fields.  
-await Workout.aggregate([{ $addFields: { totalDuration: { $sum: "$exercises.duration" } } }])
+//await Workout.aggregate([{ $addFields: { totalDuration: { $sum: "$exercises.duration" } } }])
+await Workout.totalDuration()
     .then(results => {
      // console.log(`aggregated range ${results}`);
       res.send(results);
