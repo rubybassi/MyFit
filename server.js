@@ -20,7 +20,6 @@ app.use('/api', require('./routes/api'));
 app.use('/', require('./routes/html'));
 
 const port = process.env.PORT || 3000;
-//const port = 3000;
 app.listen(port,() => {
  console.log(`listening on port: ${port}`);
 });
